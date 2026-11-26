@@ -26,8 +26,8 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 
 ## Próximas mejoras (en orden)
 
-1. Página de agenda: sumar más localidades (La Punta, Potrero de los Funes, Justo Daract, Concarán, Tilisarao, Quines, Santa Rosa del Conlara) solo con fuentes verificables.
-2. Caja de feria: "precio rápido" para vender algo que no está cargado, y ventas por cantidad (vender 3 de una).
+1. Página de agenda: sumar más localidades (La Punta, Potrero de los Funes, Justo Daract, Concarán, Tilisarao, Quines, Santa Rosa del Conlara) solo con fuentes verificables. *Bloqueada por ahora: el 26/11 no apareció ninguna convocatoria publicada para esas localidades. La agenda diaria las sigue buscando.*
+2. ~~Caja de feria: "precio rápido" para vender algo que no está cargado, y ventas por cantidad.~~ Hecho: las cantidades las hizo Codex y el precio rápido lo hizo Claude (PR "Caja de feria: anotar ventas sueltas con precio rápido").
 3. Caja de feria: comparar ferias ("¿en cuál me fue mejor?") con un gráfico simple.
 4. Agenda: explicar cómo anotarse en cada municipio (requisitos de habilitación y bromatología para comida), con fuente.
 5. Contenido: un post por cada feria nueva con inscripción abierta.
@@ -40,3 +40,5 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 - 26/11 (Codex): deploy verificado de agenda y Caja, alta de Venta Directa de Plaza de los Halcones, control de stock y respaldos. Se incorpora arqueo de efectivo y se corrige la oferta web hasta que se verifique la actualización de Wecito.
 
 - 26/11 (Codex): Wecito recibió Kit-para-ferias-Caja-actualizada.zip y la descripción nueva fue comprobada en el producto público. Se conserva el ZIP original para no afectar a compradores anteriores. Se actualiza la página comercial y la prueba.
+
+- 26/11 (Claude): verificado el deploy de Codex en vivo (issue #1 cerrado). Caja de feria: venta suelta con precio rápido, probada en las dos versiones. Agenda: sin fuentes nuevas para las localidades pendientes.
