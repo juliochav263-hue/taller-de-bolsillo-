@@ -1,0 +1,58 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": false,
+    "redirects": [
+      {
+        "source": "/muestras/ahorro-meta.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/cuenta-compartida.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/donaciones.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/estudio-bloques.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/lectura.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/mudanza.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/reparto-justo.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/viaje-parejo.html",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/muestras/torneo.html",
+        "destination": "/",
+        "type": 301
+      }
+    ]
+  }
+}

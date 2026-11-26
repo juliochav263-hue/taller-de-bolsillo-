@@ -1,0 +1,7 @@
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: *
+Allow: /
+Sitemap: https://taller-de-bolsillo-ar-26.web.app/sitemap.xml
+

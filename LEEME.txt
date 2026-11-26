@@ -1,0 +1,16 @@
+Taller de Bolsillo — código editable
+
+dist/ contiene el sitio público actual. El HTML, CSS y JavaScript están en esos archivos.
+Editá dist/ directamente. El directorio dist/ es el que se publica.
+firebase.json define el alojamiento. No se incluyen sesiones, cuentas, claves ni archivos para compradores.
+
+Portada: dist/index.html
+Kit y botón de compra: dist/ferias.html
+Comparador en español: dist/decisiones.html
+Comparador en inglés: dist/workbench.html
+Herramientas individuales: dist/muestras/
+Mapa del sitio: dist/sitemap.xml
+
+Checkout vigente: https://wecito.com/tallerdebolsillo/p/kit-para-ferias-costos-precios-y-stock
+El precio publicado del kit es ARS 4.900. Wecito gestiona el pago y la entrega.
+Para publicar cambios, devolvé el ZIP editado o entregá un diff de dist/.

@@ -1,0 +1,21 @@
+name: Publicar en Firebase
+on:
+  push:
+    branches: [main]
+    paths: ["dist/**", "firebase.json"]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar (solo si está cargado el secreto FIREBASE_SERVICE_ACCOUNT)
+        if: ${{ env.FB != '' }}
+        env:
+          FB: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: taller-de-bolsillo-ar-26
+          channelId: live

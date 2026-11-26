@@ -1,0 +1,164 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Decision workspace · Taller de Bolsillo</title><meta name="description" content="Test prices, sales channels and production plans with your own numbers. Change your inputs to compare outcomes instantly."><meta property="og:title" content="Decision workspace · Taller de Bolsillo"><meta property="og:description" content="Test prices, sales channels and production plans with your own numbers. Change your inputs to compare outcomes instantly."><meta property="og:url" content="https://taller-de-bolsillo-ar-26.web.app/workbench.html"><link rel="canonical" href="https://taller-de-bolsillo-ar-26.web.app/workbench.html"><link rel="alternate" hreflang="es" href="https://taller-de-bolsillo-ar-26.web.app/decisiones.html"><link rel="alternate" hreflang="en" href="https://taller-de-bolsillo-ar-26.web.app/workbench.html"><style>
+*{box-sizing:border-box}body{margin:0;background:#f3f3ec;color:#182720;font:16px/1.5 system-ui,sans-serif}.wrap{width:min(1140px,100% - 32px);margin:auto}nav{border-bottom:1px solid #d4d8cc}nav .wrap{display:flex;justify-content:space-between;align-items:center;min-height:60px;gap:12px}nav a{color:inherit;font-weight:750}.hero{background:#213a2f;color:#fcfcf5;padding:clamp(23px,5vw,54px);margin:23px 0;border-radius:22px}h1,h2,h3{line-height:1.11;margin:0 0 10px}h1{font:clamp(2.55rem,7vw,5rem)/1 Georgia,serif;max-width:17ch}h1 em{color:#dce9a5}.hero p{max-width:60ch;margin-bottom:0}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}button{background:#233b2f;color:white;font:inherit;font-weight:700;border:1px solid #233b2f;padding:8px 12px;border-radius:8px;cursor:pointer}button.secondary{background:white;color:#233b2f}button[aria-pressed=true]{background:#deedb1;color:#203b2c;border-color:#415f4c}.layout{display:grid;grid-template-columns:1fr .8fr;gap:16px;align-items:start}.card{background:#fffefa;border:1px solid #d4d8cc;border-radius:15px;padding:clamp(14px,3vw,23px)}.section{margin:12px 0 20px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fields label{font-weight:650;display:block}.fields input,.fields select{width:100%;padding:7px 8px;font:inherit;border:1px solid #829384;border-radius:7px;margin-top:4px;background:white;color:inherit}.scenario{border:1px solid #d4d8cc;border-radius:11px;padding:12px;margin:16px 0 0;min-width:0}.scenario legend{padding:0 5px;font-weight:750}.headline{background:#e8efcc;border-radius:9px;padding:12px;font-weight:750}.outcome{padding:11px 0;border-bottom:1px solid #e1e5d9}.outcome:last-child{border-bottom:0}.line{display:flex;justify-content:space-between;gap:10px}.muted,footer{color:#465951}.warning{color:#8a2a29}.sticky{position:sticky;top:12px}.bar{height:7px;background:#e5e9dc;border-radius:6px;margin:7px 0;overflow:hidden}.bar span{display:block;height:100%;background:#679875}.bar .negative{background:#b35556}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #6e8de3;outline-offset:3px}[hidden]{display:none!important}footer{margin:20px 0 35px}@media(max-width:770px){.layout{grid-template-columns:1fr}.sticky{position:static}}@media(max-width:385px){.fields{grid-template-columns:1fr}}
+</style></head>
+<body><nav><div class="wrap"><a href="./">Taller de Bolsillo</a><a href="decisiones.html">Español</a></div></nav><main class="wrap"><section class="hero"><h1>Compare before you <em>sell.</em></h1><p>Test prices, sales channels and production plans with your own numbers. Change your inputs to compare outcomes instantly.</p></section>
+<div class="controls"><button data-mode="channels" aria-pressed="true">Sales channels</button><button data-mode="production" aria-pressed="false">Production capacity</button></div>
+<div class="layout"><form class="card"><h2>Your inputs</h2><div class="fields section"><label>Currency<select id="currency"><option>ARS</option><option selected>USD</option><option>EUR</option><option>MXN</option><option>BRL</option><option>CLP</option><option>COP</option><option>PEN</option><option>UYU</option><option>GBP</option><option>CAD</option></select></label></div><div id="inputs"></div><div class="controls section"><button type="button" class="secondary" id="reset">Reset example</button></div></form>
+<section class="card sticky" aria-labelledby="results"><h2 id="results">Results</h2><p class="headline" id="headline" role="status"></p><div id="rows"></div><p class="muted" id="hint"></p><button id="export" type="button">Export CSV</button></section></div>
+<footer><p>Inputs are processed in your browser. Figures are planning assumptions.</p><a href="./">Browse industries in Spanish</a></footer></main><script>
+const t=["Decision workspace", "Compare before you <em>sell.</em>", "Test prices, sales channels and production plans with your own numbers. Change your inputs to compare outcomes instantly.", "Browse industries in Spanish", "Español", "Sales channels", "Production capacity", "Your inputs", "Results", "Reset example", "Export CSV", "Inputs are processed in your browser. Figures are planning assumptions.", "Price per unit", "Cost per unit", "Fixed costs per period", "Currency", "Channel", "Name", "Fee (%)", "Extra cost per sale", "Expected units", "Expected demand", "Starting inventory", "Units per batch", "Cost per batch", "Price per unit", "Planned batches", "Plan", "Hours per batch", "Available hours", "Complete the fields and check the valid ranges.", "Best estimated outcome", "Period result", "Sales to cover fixed costs", "No break-even point at this margin", "Contribution per unit", "Units short", "Units left over", "Additional hours needed", "Production cost", "Plan with the fewest shortages", "Plans are ranked by shortage, overtime and cost.", "Direct sales", "Online store", "Market stall", "Lean", "Balanced", "Expanded", "No shortages", "No profitable options with these inputs.", "Include any channel-specific costs in the extra cost per sale. Each channel is an alternative for the same period.", "Estimate shortages and leftovers before committing to orders. Cost only includes new batches.", "Negative result before tax.", "Scenario", "Metric", "Value", "Tools for market stalls"];
+const form=document.querySelector('form');
+const panel=document.querySelector('#inputs');
+const rows=document.querySelector('#rows');
+const headline=document.querySelector('#headline');
+const hint=document.querySelector('#hint');
+const tabs=[...document.querySelectorAll('[data-mode]')];
+const defaults={
+ channels:{common:[t[12],t[13],t[14]],values:[12,4,55],names:[t[42],t[43],t[44]],labels:[t[18],t[19],t[20]],cases:[[0,0,30],[12,1,48],[4,1,36]]},
+ production:{common:[t[21],t[22],t[23],t[24],t[28],t[29]],values:[108,15,24,30,2,7],names:[t[45],t[46],t[47]],labels:[t[26]],cases:[[3],[4],[5]]}
+};
+const number=new Intl.NumberFormat(document.documentElement.lang,{maximumFractionDigits:2});
+const currency=document.querySelector('#currency');
+let mode='channels';
+let exportRows=[];
+const state={};
+const money=value=>new Intl.NumberFormat(document.documentElement.lang,{style:'currency',currency:currency.value,maximumFractionDigits:2}).format(value);
+function field(label,value,kind='number',max=1000000000){
+ const wrapper=document.createElement('label');
+ wrapper.textContent=label;
+ const control=document.createElement('input');
+ Object.assign(control,{type:kind,value,required:true});
+ if(kind==='number') Object.assign(control,{min:'0',max:String(max),step:'any'});
+ else control.maxLength=50;
+ wrapper.append(control);
+ return wrapper;
+}
+function render(){
+ panel.replaceChildren();
+ const config=defaults[mode];
+ const saved=state[mode];
+ const common=document.createElement('div');
+ common.className='fields';
+ config.common.forEach((label,index)=>common.append(field(label,saved?.common[index]??config.values[index])));
+ panel.append(common);
+ config.cases.forEach((values,index)=>{
+  const block=document.createElement('fieldset');
+  block.className='scenario';
+  const legend=document.createElement('legend');
+  legend.textContent=(mode==='channels'?t[16]:t[27])+' '+(index+1);
+  const group=document.createElement('div');
+  group.className='fields';
+  group.append(field(t[17],saved?.cases[index].name??config.names[index],'text'));
+  values.forEach((value,column)=>group.append(field(config.labels[column],saved?.cases[index].values[column]??value,'number',mode==='channels'&&column===0?100:1000000000)));
+  block.append(legend,group);panel.append(block);
+ });
+ update();
+}
+function capture(){
+ const common=[...panel.querySelectorAll(':scope > .fields input')].map(input=>input.value);
+ const cases=[...panel.querySelectorAll('.scenario')].map(block=>{
+  const [name,...values]=block.querySelectorAll('input');
+  return {name:name.value,values:values.map(input=>input.value)};
+ });
+ state[mode]={common,cases};
+ return state[mode];
+}
+function display(entry,max){
+ const block=document.createElement('section');
+ block.className='outcome';
+ const heading=document.createElement('h3');
+ heading.textContent=entry.name;
+ block.append(heading);
+ const bar=document.createElement('div');
+ bar.className='bar';
+ bar.setAttribute('aria-hidden','true');
+ const fill=document.createElement('span');
+ fill.style.width=(max?Math.min(100,100*Math.abs(entry.score)/max):0)+'%';
+ if(entry.score<0) fill.className='negative';
+ bar.append(fill);block.append(bar);
+ for(const [label,value] of entry.metrics){
+  const line=document.createElement('div');
+  line.className='line';
+  const left=document.createElement('span');
+  left.textContent=label;
+  const right=document.createElement('strong');
+  right.textContent=value;
+  line.append(left,right);block.append(line);
+ }
+ rows.append(block);
+}
+function update(){
+ const {common,cases}=capture();
+ const values=common.map(Number);
+ rows.replaceChildren();
+ exportRows=[];
+ document.querySelector('#export').disabled=true;
+ hint.textContent=mode==='channels'?t[50]:t[51]+' '+t[41];
+ if(!form.checkValidity() || cases.some(row=>!row.name.trim()) ||
+    (mode==='channels' ? values[0]<=0 || cases.some(row=>!Number.isInteger(Number(row.values[2]))) : values[2]<1 || values.slice(0,3).some(value=>!Number.isInteger(value)) || cases.some(row=>!Number.isInteger(Number(row.values[0]))))){
+   headline.textContent=t[30];return;
+ }
+ let results;
+ if(mode==='channels'){
+  const [price,cost,fixed]=values;
+  results=cases.map(({name,values})=>{
+   const [fee,extra,units]=values.map(Number);
+   const contribution=price*(1-fee/100)-cost-extra;
+   const total=contribution*units-fixed;
+   return {name,score:total,metrics:[[t[32],money(total)],[t[35],money(contribution)],[t[33],contribution>0?number.format(Math.ceil(fixed/contribution)):t[34]]]};
+  }).sort((a,b)=>b.score-a.score);
+  headline.textContent=(results[0].score<0?t[49]+' ':t[31]+' · ')+results[0].name+' · '+money(results[0].score);
+ }else{
+  const [demand,stock,yieldPerBatch,cost,time,capacity]=values;
+  results=cases.map(({name,values})=>{
+   const batches=Number(values[0]);
+   const available=stock+batches*yieldPerBatch;
+   const short=Math.max(0,demand-available);
+   const left=Math.max(0,available-demand);
+   const overtime=Math.max(0,batches*time-capacity);
+   const total=batches*cost;
+   return {name,score:short,short,overtime,total,left,metrics:[[t[36],number.format(short)],[t[37],number.format(left)],[t[38],number.format(overtime)],[t[39],money(total)]]};
+  }).sort((a,b)=>a.short-b.short||a.overtime-b.overtime||a.total-b.total);
+  headline.textContent=t[40]+' · '+results[0].name+(results[0].short?' · '+number.format(results[0].short):' · '+t[48]);
+ }
+ const max=Math.max(...results.map(result=>Math.abs(result.score)));
+ for(const result of results){
+  display(result,max);
+  for(const metric of result.metrics) exportRows.push([result.name,...metric]);
+ }
+ document.querySelector('#export').disabled=false;
+}
+form.addEventListener('input',update);
+form.addEventListener('submit',event=>event.preventDefault());
+currency.addEventListener('change',update);
+const slugs={channels:'channels',production:'production'};
+const aliases={canales:'channels',channels:'channels',produccion:'production','producción':'production',production:'production'};
+function select(next,write){
+ if(!defaults[next]) return;
+ if(next!==mode) capture();
+ mode=next;
+ for(const option of tabs)option.setAttribute('aria-pressed',String(option.dataset.mode===mode));
+ if(write) history.replaceState(null,'',location.pathname+location.search+'#'+slugs[mode]);
+ render();
+}
+function fromAddress(){
+ const raw=decodeURIComponent(location.hash.slice(1))||new URLSearchParams(location.search).get('modo')||new URLSearchParams(location.search).get('mode')||'';
+ return aliases[raw.toLowerCase()];
+}
+for(const tab of tabs)tab.addEventListener('click',()=>select(tab.dataset.mode,true));
+window.addEventListener('hashchange',()=>{const next=fromAddress();if(next&&next!==mode)select(next,false);});
+document.querySelector('#reset').addEventListener('click',()=>{delete state[mode];render();});
+document.querySelector('#export').addEventListener('click',()=>{
+ const quote=value=>'"'+(/^[=+\-@\t\r]/.test(value)?"'":"")+value.replaceAll('"','""')+'"';
+ const records=[[t[53],t[54],t[55]],...exportRows];
+ const file=new Blob(['\ufeff'+records.map(row=>row.map(quote).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+ const link=document.createElement('a');
+ link.href=URL.createObjectURL(file);
+ link.download='taller-de-bolsillo-'+mode+'.csv';
+ link.click();
+ setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+});
+const initial=fromAddress();
+if(initial){mode=initial;for(const option of tabs)option.setAttribute('aria-pressed',String(option.dataset.mode===mode));}
+render();
+</script></body></html>

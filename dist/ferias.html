@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit para ferias: caja del día y cuentas para feriantes | Taller de Bolsillo</title>
+<meta name="description" content="Anotá las ventas de la feria con un toque, separá efectivo, transferencia y QR, cerrá la caja y sabé qué llevar a la próxima. Probala gratis.">
+<link rel="canonical" href="https://taller-de-bolsillo-ar-26.web.app/ferias.html">
+<meta property="og:type" content="website"><meta property="og:title" content="¿Cuánto necesitás vender en tu próxima feria?">
+<meta property="og:description" content="Probá gratis la calculadora para feriantes. Ingresá el costo del puesto, el traslado, el precio y el costo por unidad.">
+<meta property="og:url" content="https://taller-de-bolsillo-ar-26.web.app/ferias.html">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f5ed;color:#232b26;font:16px/1.55 system-ui}header,main,footer{max-width:850px;margin:auto;padding:20px}header a{color:inherit;font-weight:750;text-decoration:none}.hero{padding:clamp(22px,6vw,56px);border-radius:25px;background:#202a27;color:#fafaf3}h1,h2{font-family:Georgia,serif;font-weight:500;line-height:1.04}h1{font-size:clamp(2.45rem,7vw,4.65rem);margin:0 0 18px}h2{font-size:2rem;margin:0 0 10px}.hero p{max-width:39em}.button{display:inline-block;margin-top:10px;padding:12px 16px;border:0;border-radius:9px;background:#d9f39a;color:#202a27;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}.panel{margin-top:16px;padding:24px;background:#fffefa;border:1px solid #d7d8cc;border-radius:16px}.panel a,footer a{color:#234d42}.muted{color:#4e5b54}a:focus-visible,button:focus-visible{outline:3px solid #5975cf;outline-offset:3px}
+</style></head><body>
+<header><a href="./">Taller de Bolsillo</a></header>
+<main>
+<section class="hero"><h1>Kit para ferias: la caja del día y tus cuentas, en el celu</h1><p>Anotá cada venta con un toque, separá lo que entró en efectivo, por transferencia y por QR, cerrá la caja y sabé qué llevar a la próxima feria. Anda sin internet.</p><a class="button" href="muestras/caja-de-feria.html">Probar la Caja de feria gratis</a></section>
+<section class="panel"><h2>Qué trae el kit</h2><ul>
+<li><strong>Caja de feria completa:</strong> guarda todas tus ferias, te muestra en cuál te fue mejor y te dice cuántas llevar de cada cosa a la próxima.</li>
+<li><a href="muestras/feria-cero.html">Cuántas vender para cubrir la feria</a></li><li><a href="muestras/lote-dulce.html">A cuánto vender cada unidad de la tanda</a></li><li><a href="muestras/stock-seguro.html">Cuándo reponer</a></li></ul>
+<p>En la prueba gratis la caja anda, pero no guarda nada: cuando cerrás la página, se borra. En el kit queda todo guardado en tu celu y podés bajar tus números en una planilla.</p>
+<p><strong>$4.900 · pago único</strong></p><a class="button" href="https://wecito.com/tallerdebolsillo/p/kit-para-ferias-costos-precios-y-stock">Comprar el kit en Wecito</a><p class="muted">Pagás con Mercado Pago. Wecito te manda el archivo por mail cuando se confirma el pago.</p></section>
+<section class="panel"><h2>Un ejemplo</h2><p>Si entre puesto y nafta gastás $43.000 y cada cosa que vendés te deja $5.400, con <strong>8 ventas</strong> cubrís el día. Desde la novena, ganás.</p></section>
+<section class="panel"><h2>¿Sos de San Luis?</h2><p><a href="ferias-san-luis.html">Mirá dónde hay ferias, cuándo y cómo anotarte</a>.</p><p>Pasale esta página a alguien que vaya a la feria.</p><button class="button" id="share" type="button" hidden>Compartir o copiar enlace</button><p id="share-status" role="status"></p></section>
+</main><footer><a href="./">Ver todas las herramientas</a></footer>
+<script>
+const button = document.querySelector('#share');
+const status = document.querySelector('#share-status');
+const url = document.querySelector('link[rel=canonical]').href;
+if (navigator.share || navigator.clipboard) button.hidden = false;
+button.addEventListener('click', async () => {
+  try {
+    if (navigator.share) await navigator.share({title:document.title,url});
+    else { await navigator.clipboard.writeText(url); status.textContent = 'Enlace copiado.'; }
+  } catch (error) {
+    if (error.name !== 'AbortError') status.textContent = url;
+  }
+});
+</script></body></html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es-AR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿A cuánto vendo cada unidad de la tanda? · Taller de Bolsillo</title><meta name="description" content="Sumá lo que gastaste en la tanda y te dice a cuánto vender cada unidad para ganar lo que querés.">
+<meta name="theme-color" content="#202a27">
+<style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box}
+:root{color:#24282b;background:#f5f5ed;font-family:"DM Sans",system-ui,sans-serif;line-height:1.5}
+body{margin:0}a{color:inherit}button,input{font:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #5975cf;outline-offset:3px}
+.wrap{width:min(1150px,calc(100% - 36px));margin:auto}.narrow{width:min(710px,calc(100% - 36px));margin:auto}
+nav{border-bottom:1px solid #d7d8cc}.navline{min-height:67px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-weight:700}.brand{text-decoration:none}.brand span{display:inline-grid;place-items:center;width:29px;height:29px;border:1px solid;border-radius:50%;margin-right:8px}
+.hero{margin:36px auto 26px;display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:center;background:#202a27;color:#f3f5e9;border-radius:24px;padding:clamp(25px,5vw,68px);overflow:hidden}
+h1,h2{line-height:1.02;font-family:"Instrument Serif",Georgia,serif;font-weight:400;margin:0}h1{font-size:clamp(3.3rem,8.2vw,7rem);letter-spacing:-.045em}h1 em{color:#d9f39a;font-weight:400}.hero p{max-width:28em}.hero-art{min-height:200px;aspect-ratio:1.25;display:grid;grid-template-columns:repeat(2,1fr);transform:rotate(-8deg);gap:9px;padding:16px}.hero-art span{border-radius:40% 46% 24% 34%;display:grid;place-items:center;font-size:clamp(2.1rem,6vw,5.1rem);line-height:1;color:#202a27}.hero-art span:nth-child(1){background:#d9f39a}.hero-art span:nth-child(2){background:#edd6fb}.hero-art span:nth-child(3){background:#f8c997}.hero-art span:nth-child(4){background:#cedbf6}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:25px 0 12px}.filters button{border:1px solid #777e75;background:transparent;color:inherit;border-radius:50px;padding:8px 13px;cursor:pointer}.filters button[aria-pressed=true]{background:#202a27;color:#fff;border-color:#202a27}.search{margin:0 0 16px;max-width:440px}.search input,.form input{background:#fff;width:100%;border:1px solid #8b958a;padding:9px 12px;border-radius:9px;color:#24282b}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{display:flex;flex-direction:column;border:1px solid #d7d8cc;border-radius:15px;background:#fffefa;padding:11px;min-width:0}.tile{display:grid;place-items:center;min-height:94px;border-radius:10px;font-size:3.25rem;line-height:1;background:#d9f39a;color:#202a27}.c1 .tile{background:#edd6fb}.c2 .tile{background:#f8c997}.c3 .tile{background:#cedbf6}.card h2{font-size:1.65rem;margin:10px 0 5px}.card p{margin:4px 0 12px;font-size:.95rem}.card .cardfoot{margin-top:auto;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}.card a,.action{padding:8px 11px;border:1px solid #202a27;border-radius:8px;background:#202a27;color:white;text-decoration:none;cursor:pointer}.price{font-weight:700}.status{color:#4b5750;font-size:.92rem}.notice{border:1px solid #a7b1a5;background:#fffefa;border-radius:10px;padding:12px 14px}.page{padding:24px 0 42px}.page h1{font-size:clamp(2.8rem,8vw,4.6rem);margin:12px 0}.form{padding:clamp(14px,4vw,24px);border:1px solid #d7d8cc;border-radius:16px;background:#fffefa}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form label{display:block;font-weight:600}.form input{display:block;margin-top:5px}.form output{display:block;background:#e8f6d2;border-radius:10px;padding:12px 14px;margin:15px 0 10px;min-height:50px;font-weight:700}.form small{display:block}.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:13px}.secondary{padding:8px 11px;border:1px solid #6e7d72;border-radius:8px;background:transparent;color:#202a27;cursor:pointer}footer{padding:28px 0 40px;color:#4b5750}[hidden]{display:none!important}
+@media(max-width:880px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:650px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.hero-art{min-height:110px;max-width:260px;width:85%;justify-self:center}.fields{grid-template-columns:1fr}}@media(max-width:370px){.gallery{grid-template-columns:1fr}}
+</style></head>
+<body><nav><div class="wrap navline"><a class="brand" href="../index.html"><span aria-hidden="true">✦</span>Taller de Bolsillo</a></div></nav><main class="narrow page">
+<a href="../index.html">Volver al catálogo</a>
+<p class="status">Demo interactiva · Emprendimientos</p><h1>¿A cuánto vendo cada unidad de la tanda?</h1><p>Sumá lo que gastaste en la tanda y te dice a cuánto vender cada unidad para ganar lo que querés.</p>
+<form id="tool" class="form" data-slug="lote-dulce">
+<div class="fields"><label>Ingredientes o materiales de la tanda<input type="number" required min="0" max="1000000000000" step="any" value="17000" data-value="Ingredientes o materiales de la tanda"></label><label>Envases, bolsas o etiquetas<input type="number" required min="0" max="1000000000000" step="any" value="3000" data-value="Envases, bolsas o etiquetas"></label><label>Lo que cobrás por tu trabajo en la tanda<input type="number" required min="0" max="1000000000000" step="any" value="9000" data-value="Lo que cobrás por tu trabajo en la tanda"></label><label>Cuántas unidades salen<input type="number" required min="0" max="1000000000000" step="any" value="24" data-value="Cuántas unidades salen"></label><label>Cuánto querés ganar (% del precio)<input type="number" required min="0" max="1000000000000" step="any" value="30" data-value="Cuánto querés ganar (% del precio)"></label></div><output id="result" aria-live="polite" data-label="Vendé cada una a">Calculando…</output>
+<small>La ganancia se calcula sobre el precio final. Si vendés por una app que te cobra comisión, sumala aparte.</small><div class="actions"><button type="button" id="example" class="secondary">Restaurar ejemplo</button></div>
+</form><p class="status">Los números se procesan en tu dispositivo.</p><section class="notice"><strong>Incluida en el Kit para ferias · $4.900 ARS</strong><p>Esta cuenta viene en el kit junto con las otras dos cuentas para la feria: cuántas vender para cubrir el día, a cuánto vender cada unidad de la tanda y cuándo reponer. Andan en el celu sin internet y podés guardar tus números. Pagás con Mercado Pago y Wecito te manda el archivo por email cuando se confirma el pago.</p><div class="actions"><a href="https://wecito.com/tallerdebolsillo/p/kit-para-ferias-costos-precios-y-stock?utm_source=taller&amp;utm_medium=herramienta&amp;utm_campaign=kit_ferias&amp;utm_content=lote-dulce" style="display:inline-block;padding:12px 16px;border-radius:9px;background:#d9f39a;color:#202a27;font-weight:750;text-decoration:none">Comprar el kit en Wecito</a> <a href="../ferias.html">Ver qué incluye</a></div></section></main><script>function tournament(teams, courts, minutes, breaks) {
+  if (teams < 2 || !Number.isInteger(Math.log2(teams)) || !Number.isInteger(courts) || courts < 1) return NaN;
+  let duration = 0;
+  for (let matches = teams / 2; matches >= 1; matches /= 2) {
+    duration += Math.ceil(matches / courts) * minutes;
+    if (matches > 1) duration += breaks;
+  }
+  return duration;
+}
+const form = document.querySelector('#tool');
+const inputs = Array.from(form.querySelectorAll('[data-value]'));
+const result = document.querySelector('#result');
+const download = document.querySelector('#csv');
+const format = new Intl.NumberFormat('es-AR',{maximumFractionDigits:2});
+function calculate() {
+  if (inputs.some(input => !input.validity.valid)) return null;
+  const [a,b,c,d,e] = inputs.map(input => input.valueAsNumber);
+  if (!(d > 0 && Number.isInteger(d) && e < 100)) return null;
+  const value = ((a+b+c)/d)/(1-e/100);
+  return Number.isFinite(value) ? value : null;
+}
+function update() {
+  const value = calculate();
+  result.textContent = value === null ? 'Revisá los valores y sus límites.' : result.dataset.label + ' · ' + format.format(value);
+  if (download) download.disabled = value === null;
+}
+form.addEventListener('input',update);
+form.addEventListener('submit',event => {
+  event.preventDefault();
+  update();
+});
+document.querySelector('#example').addEventListener('click',() => {
+  for (const input of inputs) input.value = input.defaultValue;
+  update();
+});
+if (download) download.addEventListener('click',() => {
+  const value = calculate();
+  if (value === null) return;
+  const quote = text => '"' + String(text).replaceAll('"','""') + '"';
+  const rows = [['Concepto','Valor'],...inputs.map(input => [input.dataset.value,input.value.replace('.',',')]),[result.dataset.label,String(value).replace('.',',')]];
+  const content = '\ufeff' + rows.map(row => row.map(quote).join(';')).join('\r\n');
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));
+  link.download = form.dataset.slug + '.csv';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href),1000);
+});
+update();
+</script></body></html>

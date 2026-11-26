@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Archivo Abierto · Tienda para productos digitales en Argentina</title>
+<meta name="description" content="Probá una vidriera para vender archivos digitales en pesos. Simulá cuánto recibirías con una comisión de plataforma del 5%.">
+<link rel="canonical" href="https://taller-de-bolsillo-ar-26.web.app/creadores.html">
+<meta property="og:title" content="Archivo Abierto · Tu tienda de archivos digitales">
+<meta property="og:description" content="Explorá la demo para creadores argentinos y calculá una comisión de plataforma del 5%.">
+<meta property="og:url" content="https://taller-de-bolsillo-ar-26.web.app/creadores.html">
+<style>
+*{box-sizing:border-box}body{margin:0;color:#252724;background:#f4f4ee;font:16px/1.55 system-ui}header,main,footer{width:min(100% - 36px,900px);margin:auto}header,footer{padding:20px 0}header a{color:inherit;font-weight:700}.hero{background:#20312b;color:white;padding:clamp(22px,6vw,60px);border-radius:24px}.hero p{max-width:45ch}h1,h2{font-family:Georgia,serif;line-height:1.07;font-weight:500;margin:0 0 14px}h1{font-size:clamp(2.4rem,7vw,5rem)}h2{font-size:1.85rem}.hero a{color:#d9f39a;font-weight:750}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:15px 0}.panel{padding:22px;background:#fffefa;border:1px solid #cbd2c7;border-radius:16px}.panel a,footer a{color:#24483c}.notice{color:#d9f39a;font-weight:700}.field{display:block;margin-bottom:12px;font-weight:650}input,textarea{width:100%;display:block;background:white;border:1px solid #839389;border-radius:9px;padding:9px;margin-top:4px;color:inherit;font:inherit}textarea{resize:vertical}.muted{color:#525a55}.payout{background:#e9f1de;padding:13px;border-radius:11px;margin-top:15px}.preview-description{white-space:pre-wrap;overflow-wrap:anywhere}.preview-title{overflow-wrap:anywhere}@media(max-width:660px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<header><a href="./">Taller de Bolsillo</a></header>
+<main>
+<section class="hero"><p class="notice">Demo pública · Sin pagos reales</p><h1>Tu tienda de archivos digitales.</h1><p>Probá cómo se vería tu producto y calculá cuánto te quedaría con una comisión de plataforma del 5%.</p><a href="#simulador">Probar con mi producto</a></section>
+<div class="grid" id="simulador">
+<section class="panel"><h2>Prepará tu producto</h2>
+<form id="product"><label class="field">Título<input name="title" maxlength="100" value="Guía para mi primera feria" required></label>
+<label class="field">Descripción<textarea name="description" maxlength="300" rows="3">Una guía descargable para organizar los costos de tu puesto.</textarea></label>
+<label class="field">Precio en pesos argentinos<input name="price" type="number" min="1" max="10000000" step="0.01" value="10000" required></label>
+<label class="field">Costo estimado de Mercado Pago en pesos (opcional)<input name="processor" type="number" min="0" max="10000000" step="0.01" value="0"></label></form>
+<p class="muted">Los datos de esta demo se quedan en tu navegador.</p></section>
+<section class="panel"><h2>Vista previa</h2><strong id="product-title" class="preview-title"></strong><p id="description" class="preview-description"></p>
+<div class="payout" aria-live="polite"><p id="listed"></p><p id="fee"></p><strong id="net"></strong></div>
+<p class="muted">Simulación. El costo del procesador se descuenta solo si lo ingresás. Las retenciones e impuestos aplicables no están incluidos.</p></section></div>
+<section class="panel"><h2>Cómo funcionaría una venta</h2><p>El creador publica un archivo y conecta Mercado Pago. Cuando se confirma un pago, el comprador recibe la descarga y la plataforma aplica su 5%. En esta demo, las cuentas de vendedores, los pagos y las descargas comerciales todavía están pendientes de activación.</p></section>
+</main><footer><a href="ferias.html">Ver una muestra de producto digital</a></footer>
+<script>
+const form = document.querySelector('#product');
+const fields = form.elements;
+const currency = new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS'});
+const output = (id,value) => { document.getElementById(id).textContent = value; };
+function update() {
+  output('product-title',fields.title.value.trim() || 'Tu producto');
+  output('description',fields.description.value);
+  const price = Math.round(fields.price.valueAsNumber * 100);
+  const processor = Math.round((fields.processor.valueAsNumber || 0) * 100);
+  if (!form.checkValidity() || processor > price) {
+    output('listed','Revisá el título, el precio y el costo.');
+    output('fee','');
+    output('net','');
+    return;
+  }
+  const fee = Math.round(price * 0.05);
+  output('listed','Precio: ' + currency.format(price/100));
+  output('fee','Comisión de plataforma: ' + currency.format(fee/100));
+  output('net','Total estimado para el creador: ' + currency.format((price-fee-processor)/100));
+}
+form.addEventListener('input',update);
+form.addEventListener('submit',event=>event.preventDefault());
+update();
+</script></body></html>
