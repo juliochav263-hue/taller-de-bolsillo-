@@ -10,7 +10,7 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 |---|---|---|---|
 | 1 | Perfil @tallerdebolsillo.ar profesional | Listos: foto, nombre, bio y enlace (`instagram-tallerdebolsillo/textos.md`) | **Lo tiene que cargar la persona dueña:** Buffer no edita perfiles y no hay otra herramienta. La "verificación" (tilde azul) de Instagram es paga (Meta Verified) y la pide la persona dueña. |
 | 2 | Agenda de ferias de San Luis con fuentes | Página `ferias-san-luis.html` publicada con cinco ferias y enlaces de verificación. | Confirmar nuevas convocatorias y evitar fechas vencidas |
-| 3 | Stock, ventas, gastos y balance para feriantes | Caja de feria: prueba publicada; edición descargable probada, registra ventas por cantidad y permite arqueo y respaldo. | **Wecito:** está publicado el kit original de tres herramientas. La edición con Caja todavía debe cargarse y verificarse |
+| 3 | Stock, ventas, gastos y balance para feriantes | Caja de feria: prueba publicada; edición descargable probada, registra ventas por cantidad y permite arqueo y respaldo. | **Wecito:** kit actualizado publicado y archivo Caja-actualizada comprobado en el editor. Faltan compras reales verificadas |
 | 4 | Mejoras por rubro según evidencia | Hecho: lenguaje simple y se sacaron 9 herramientas que no eran de emprendimientos. Falta medir qué páginas visita la gente | **Datos:** no hay analíticas conectadas |
 | 5 | Contenido en español argentino | 12 imágenes y textos listos. 1 post publicado en Instagram | **Imágenes:** las que dependen del sitio esperan el deploy |
 | 6 | Difusión en canales autorizados | Instagram de la marca por Buffer. Borradores para grupos | **Grupos:** Facebook y Reddit no se pueden publicar desde acá |
@@ -19,7 +19,7 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 ## Lo que solo puede hacer la persona dueña
 
 1. ~~Pasarle a Codex el ZIP.~~ Completado: usamos el repositorio compartido para publicar.
-2. Subir a Wecito el kit nuevo (`caja-de-feria/Kit-para-ferias-Taller-de-Bolsillo.zip`) y actualizar la descripción del producto.
+2. ~~Subir a Wecito el kit nuevo y actualizar la descripción.~~ Completado: Wecito muestra la Caja completa y ARS 4.900.
 3. Cargar la bio, la foto y el enlace del perfil de Instagram.
 4. Crear el canal de WhatsApp "Ferias de San Luis" (gratis) y pegar los avisos que se redactan cada día.
 5. Opcional: conectar Google Analytics o Search Console para poder medir visitas.
@@ -38,3 +38,5 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 - 26/11: agenda de ferias, Caja de feria con stock, sitio en lenguaje simple, sacadas 9 herramientas, kit nuevo para Wecito, contenido de Instagram rehecho.
 
 - 26/11 (Codex): deploy verificado de agenda y Caja, alta de Venta Directa de Plaza de los Halcones, control de stock y respaldos. Se incorpora arqueo de efectivo y se corrige la oferta web hasta que se verifique la actualización de Wecito.
+
+- 26/11 (Codex): Wecito recibió Kit-para-ferias-Caja-actualizada.zip y la descripción nueva fue comprobada en el producto público. Se conserva el ZIP original para no afectar a compradores anteriores. Se actualiza la página comercial y la prueba.

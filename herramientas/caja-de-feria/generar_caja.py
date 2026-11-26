@@ -16,7 +16,7 @@ button{font:inherit;cursor:pointer}.btn{background:#1b3428;color:#f6f7ed;border:
 def build(demo):
     head_link='<a class="brand" href="../"><i aria-hidden="true">TB</i>Taller de Bolsillo</a>' if demo else '<span class="brand"><i aria-hidden="true">TB</i>Taller de Bolsillo</span>'
     banner=('<p class="demo"><strong>Versión de prueba:</strong> anda completa durante esta visita, pero no guarda nada. '
-            'Estamos preparando una edición con historial guardado. Por ahora podés exportar y recuperar una copia. Mirá el <a href="../ferias.html">Kit para ferias</a> si necesitás las cuentas de costos, precios y stock.</p>') if demo else \
+            'Podés exportar y recuperar una copia. En el <a href="../ferias.html">Kit para ferias</a> la Caja completa guarda tus jornadas automáticamente.</p>') if demo else \
            '<p class="muted">Todo queda guardado en este celular. Abrilo siempre con el mismo navegador (Chrome) para no perder tus ferias.</p>'
     return f"""<!doctype html><html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Caja de feria · Taller de Bolsillo</title><meta name="description" content="Anotá cada venta de la feria con un toque, separá efectivo, transferencia y QR, cerrá la caja y sabé qué llevar a la próxima."><style>{style}{css}</style></head>
@@ -72,7 +72,7 @@ function render(){{const f=feria();
  const big=el('p',r.n===0&&r.gastos===0?'Anotá tus ventas y acá ves cómo te fue.':(r.limpio>=0?'Te quedan '+plata(r.limpio)+' limpios. ¡Te convino!':'Por ahora perdés '+plata(-r.limpio)+'.'),'big');c.append(big);
  const ganan=r.n?(r.total-r.comision-r.costo)/r.n:0;if(r.limpio<0&&ganan>0)c.append(el('p','Te faltan unas '+Math.ceil(-r.limpio/ganan)+' ventas para no perder.','muted'));
  const ll=document.querySelector('#llevar');ll.replaceChildren();
- if(DEMO){{ll.append(el('p','La edición con historial guardado está en preparación comercial. Mientras tanto, descargá una copia de seguridad de tu jornada antes de cerrar.','lock'));const a=el('a','Ver el Kit para ferias');a.href='../ferias.html';ll.append(a)}}
+ if(DEMO){{ll.append(el('p','En el Kit para ferias, la Caja completa guarda tus jornadas y, con lo que vendiste antes, te sugiere cuántas llevar de cada producto.','lock'));const a=el('a','Ver el Kit para ferias');a.href='../ferias.html';ll.append(a)}}
  else{{const pasadas=S.ferias.filter(x=>x.id!==f.id&&x.ventas.length).sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')).slice(0,3);
   if(!pasadas.length)ll.append(el('p','Cuando cierres tu primera feria, acá te vamos a decir cuántas llevar de cada cosa.','muted'));
   else{{ll.append(el('p',(pasadas.length===1?'Según tu última feria':'Según tus últimas '+pasadas.length+' ferias')+' (lo que más vendiste, más un 20% por las dudas):','muted'));const ul=el('ul',null,'lista');
