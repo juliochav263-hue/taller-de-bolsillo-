@@ -1,7 +1,7 @@
 Kit para ferias · Taller de Bolsillo
 
 Qué trae:
-- caja-de-feria.html: anotá cada venta con un toque, separá efectivo, transferencia y QR, cerrá la caja y mirá qué llevar a la próxima feria. Guarda todas tus ferias.
+- caja-de-feria.html: anotá cada venta con un toque, separá efectivo, transferencia y QR, compará el efectivo contado con el esperado, cerrá la caja y mirá qué llevar a la próxima feria. Guarda todas tus ferias.
 - cuantas-vender-para-cubrir-la-feria.html
 - a-cuanto-vender-cada-unidad.html
 - cuando-reponer.html
@@ -10,6 +10,6 @@ Cómo usarlo en el celu:
 1. Descomprimí el archivo (en Android, desde la app Archivos tocás el .zip y "Extraer").
 2. Abrí caja-de-feria.html con Chrome.
 3. Usala siempre desde el mismo celu y el mismo navegador: ahí quedan guardadas tus ferias.
-4. Anda sin internet. Para no perder nada si cambiás de celu, tocá "Descargar mis números (planilla)" de vez en cuando.
+4. Anda sin internet. Para no perder nada si cambiás de celu, tocá "Descargar copia de seguridad" de vez en cuando. La planilla CSV sirve para revisar los números; el respaldo JSON sirve para recuperarlos.
 
 ¿Dudas? Escribinos por Instagram a @tallerdebolsillo.ar

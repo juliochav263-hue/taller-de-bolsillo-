@@ -15,6 +15,11 @@ for(const file of files){
  for(const qty of [0,-1,1.5,10001,NaN])assert.equal(ctx.puedeVender(undefined,0,qty),false);
  const summary=ctx.resumen({ventas:[{medio:'qr',precio:1000,costo:400,cant:3},{medio:'efectivo',precio:900,costo:500,cant:2}],qr:10,puesto:500,viaje:100,otros:0});
  assert.equal(summary.total,4800);assert.equal(summary.n,5);assert.equal(summary.comision,300);assert.equal(summary.limpio,1700);
+ const caja=ctx.resumen({ventas:[{medio:'efectivo',precio:1600.25,costo:500,cant:2}],fondo:500,retiros:700,contado:3000.50,puesto:700});
+ assert.equal(caja.esperado,3000.50);assert.equal(caja.diferencia,0);assert.equal(caja.limpio,1500.50);
+ const retirada=ctx.resumen({ventas:[],fondo:0,retiros:500,contado:0});assert.equal(retirada.esperado,-500);assert.equal(retirada.diferencia,500);
+ assert.equal(ctx.resumen({ventas:[],fondo:500,contado:null}).diferencia,null);
+
  const d={productos:[{id:'a',nombre:'Alfajor',precio:1000,costo:400}],ferias:[{id:'b',ventas:[{nombre:'Alfajor',precio:1000,costo:400,cant:2,medio:'qr'}],llevo:{a:3},qr:10}],actual:'b'};
  assert.equal(ctx.respaldoValido(d),true);assert.equal(ctx.respaldoValido({...d,actual:'x'}),false);
  const bad=structuredClone(d);bad.ferias[0].ventas[0].cant=-1;assert.equal(ctx.respaldoValido(bad),false);
