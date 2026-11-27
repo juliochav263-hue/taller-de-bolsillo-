@@ -42,3 +42,5 @@ Que Taller de Bolsillo sea un producto comercial que funcione para emprendedores
 - 26/11 (Codex): Wecito recibió Kit-para-ferias-Caja-actualizada.zip y la descripción nueva fue comprobada en el producto público. Se conserva el ZIP original para no afectar a compradores anteriores. Se actualiza la página comercial y la prueba.
 
 - 26/11 (Claude): verificado el deploy de Codex en vivo (issue #1 cerrado). Caja de feria: venta suelta con precio rápido, probada en las dos versiones. Agenda: sin fuentes nuevas para las localidades pendientes.
+
+- 27/11 (Claude): portada con las próximas ferias (salen de ferias.json), botón "Pasalo por WhatsApp" en cada feria, archivo para agendar la feria de Juana Koslay en el celular, captura real del cierre de caja en la página del kit y sacado el enlace a la versión en inglés de la portada. Post de Juana Koslay programado en Instagram para el 27/11 a las 19:00.

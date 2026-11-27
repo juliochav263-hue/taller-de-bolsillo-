@@ -12,14 +12,32 @@ extra=""".agenda{width:min(920px,100% - 36px);margin:28px auto}.agenda h1{font:c
 .calc{background:#1b3428;color:#f6f7ed;border-radius:22px;padding:22px;margin:30px 0}.calc h2{font:2rem Georgia,serif;margin:0 0 6px}.calc label{font-weight:700;display:block}.calc input{width:100%;padding:10px;border-radius:8px;border:0;margin-top:4px;font:inherit}
 .calc .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.calc .res{background:#eaf0c9;color:#182720;border-radius:12px;padding:14px;margin-top:14px}.calc .res strong{font-size:1.25rem}
 .aviso{background:#fff7e0;border:1px solid #ecd9a4;border-radius:12px;padding:12px 14px}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}.accion{display:inline-block;background:#1b3428;color:#f6f7ed;border-radius:10px;padding:10px 14px;font-weight:750;text-decoration:none}
 @media(max-width:560px){.feria dl{grid-template-columns:1fr}.feria dt{margin-top:6px}.calc .fields{grid-template-columns:1fr}}"""
 etiqueta={"abierta":"Inscripción abierta","repite":"Se repite · llamá para la próxima fecha","temporada":"Temporada de verano · confirmá si abre"}
+import urllib.parse,re as _re
+SITIO="https://taller-de-bolsillo-ar-26.web.app/ferias-san-luis.html"
+def slug(f): return _re.sub(r"[^a-z0-9]+","-",(f["localidad"]+" "+f["nombre"]).lower().translate(str.maketrans("áéíóúñü","aeiounu"))).strip("-")[:60]
+def texto_wsp(f):
+    return (f"📍 {f['nombre']} ({f['localidad']})\n🗓 {f['cuando']}\n📌 {f['donde']}\n✍️ Cómo anotarte: {f['anotarte']}\n\nTodas las ferias de San Luis: {SITIO}?utm_source=whatsapp&utm_medium=compartir")
+def ics(f):
+    from datetime import date,timedelta
+    fin=(date.fromisoformat(f["hasta"])+timedelta(days=1)).strftime("%Y%m%d")
+    esc=lambda s:s.replace("\\","\\\\").replace(",","\\,").replace(";","\\;").replace("\n","\\n")
+    return "\r\n".join(["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Taller de Bolsillo//Ferias San Luis//ES","BEGIN:VEVENT",f"UID:{slug(f)}@tallerdebolsillo",
+      f"DTSTAMP:{revisado[6:10]}{revisado[3:5]}{revisado[0:2]}T000000Z",f"DTSTART;VALUE=DATE:{f['desde'].replace('-','')}",f"DTEND;VALUE=DATE:{fin}",
+      "SUMMARY:"+esc(f["nombre"]+" · "+f["localidad"]),"LOCATION:"+esc(f["donde"]+", "+f["localidad"]+", San Luis"),
+      "DESCRIPTION:"+esc("Cómo anotarte: "+f["anotarte"]+"\nFuente: "+f["fuente"]),"END:VEVENT","END:VCALENDAR"])+"\r\n"
+def acciones(f):
+    a=f'<p class="acciones"><a class="accion" href="https://wa.me/?text={urllib.parse.quote(texto_wsp(f))}" target="_blank" rel="noopener">📲 Pasalo por WhatsApp</a>'
+    if f.get("desde") and f.get("hasta"): a+=f'<a class="accion" href="ferias/{slug(f)}.ics" download>📅 Agendalo en el celu</a>'
+    return a+'</p>'
 def card(f):
     e=lambda k:html.escape(f[k])
     return (f'<article class="feria" data-loc="{e("localidad")}"><span class="pill {f["estado"]}">{etiqueta[f["estado"]]}</span>'
             f'<h2>{e("nombre")}</h2><dl><dt>Dónde queda</dt><dd>{e("localidad")} · {e("donde")}</dd><dt>Cuándo</dt><dd>{e("cuando")}</dd><dt>Horario</dt><dd>{e("horario")}</dd>'
-            f'<dt>Cómo anotarte</dt><dd>{e("anotarte")}</dd><dt>Qué te piden</dt><dd>{e("piden")}</dd><dt>Cuánto sale el puesto</dt><dd>{e("costo")}</dd><dt>Qué llevar</dt><dd>{e("llevar")}</dd></dl>'
-            f'<p class="fuente">Fuente: <a href="{e("fuente")}" rel="noopener" target="_blank">{e("medio")}</a> ({e("fecha_fuente")})</p></article>')
+            f'<dt>Cómo anotarte</dt><dd>{e("anotarte")}</dd><dt>Qué te piden</dt><dd>{e("piden")}</dd><dt>Cuánto sale el puesto</dt><dd>{e("costo")}</dd><dt>Qué llevar</dt><dd>{e("llevar")}</dd></dl>'+
+            acciones(f)+f'<p class="fuente">Fuente: <a href="{e("fuente")}" rel="noopener" target="_blank">{e("medio")}</a> ({e("fecha_fuente")})</p></article>')
 locs=sorted({f["localidad"] for f in datos})
 orden={"abierta":0,"repite":1,"temporada":2}
 cards="".join(card(f) for f in sorted(datos,key=lambda f:(orden[f["estado"]],f["localidad"])))
@@ -62,3 +80,18 @@ function cuenta(){{
 form.addEventListener('input',cuenta);form.addEventListener('submit',e=>e.preventDefault());cuenta();
 </script></body></html>"""
 (out/"ferias-san-luis.html").write_text(page,encoding="utf-8");print("ok",len(datos),"ferias")
+(out/"ferias").mkdir(exist_ok=True)
+for f in datos:
+    if f.get("desde") and f.get("hasta"): (out/"ferias"/f"{slug(f)}.ics").write_text(ics(f),encoding="utf-8",newline="")
+idx=out/"index.html"
+if idx.exists():
+    h=idx.read_text(encoding="utf-8")
+    prox=sorted(datos,key=lambda f:(orden[f["estado"]],f["localidad"]))[:3]
+    filas="".join(f'<li style="padding:10px 0;border-top:1px solid #d3d9cc"><span class="pill {f["estado"]}" style="font-size:.8rem;font-weight:750;border-radius:20px;padding:2px 9px;background:{ {"abierta":"#d9f39a","repite":"#e6ecf7","temporada":"#f7ead0"}[f["estado"]] }">{etiqueta[f["estado"]]}</span><br><strong>{html.escape(f["nombre"])}</strong> · {html.escape(f["localidad"])}<br><span style="color:#455e50">{html.escape(f["cuando"])}</span></li>' for f in prox)
+    bloque=(f'<!--ferias-inicio--><section aria-labelledby="prox-t" style="background:#fffefa;border:1px solid #d3d9cc;border-radius:16px;padding:20px;margin:18px 0">'
+            f'<h2 id="prox-t" style="font:1.9rem Georgia,serif;margin:0">Próximas ferias en San Luis</h2><p style="margin:4px 0 0;color:#455e50">Revisado el {revisado}</p>'
+            f'<ul style="list-style:none;padding:0;margin:8px 0">{filas}</ul><a href="ferias-san-luis.html"><strong>Ver todas, con teléfonos y cómo anotarte</strong></a></section><!--ferias-fin-->')
+    if "<!--ferias-inicio-->" in h: h=_re.sub(r"<!--ferias-inicio-->.*?<!--ferias-fin-->",lambda m:bloque,h,flags=_re.S)
+    else:
+        i=h.index("</section>",h.index('<section class="hero">'))+len("</section>"); h=h[:i]+"\n"+bloque+h[i:]
+    idx.write_text(h,encoding="utf-8")

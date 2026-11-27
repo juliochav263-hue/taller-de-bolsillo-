@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Taller de Bolsillo//Ferias San Luis//ES
+BEGIN:VEVENT
+UID:juana-koslay-el-arbol-de-tus-suenos-feria-navidena@tallerdebolsillo
+DTSTAMP:20261127T000000Z
+DTSTART;VALUE=DATE:20261206
+DTEND;VALUE=DATE:20261209
+SUMMARY:El Árbol de tus Sueños (feria navideña) · Juana Koslay
+LOCATION:Rotonda Cruz de Piedra\, Juana Koslay\, San Luis
+DESCRIPTION:Cómo anotarte: En persona en la Municipalidad\, Av. del Portezuelo 617\, de lunes a viernes de 8 a 14.\nFuente: https://www.sanluisreal.com.ar/2026/11/17/juana-koslay-este-martes-la-municipalidad-abrira-la-convocatoria-para-participar-del-el-arbol-de-tus-suenos/
+END:VEVENT
+END:VCALENDAR
